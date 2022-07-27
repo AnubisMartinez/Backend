@@ -13,10 +13,18 @@ public class ControlDireccionRepository {
     @Inject
     private EntityManager em;
 
-    public List<TcsDireccion> getDireccion() throws Exception{
+    /**
+     * 
+     * @param idcliente
+     * @return
+     * @throws Exception
+     */
+    public List<TcsDireccion> getDireccion(Integer idcliente) throws Exception{
         try {
             StringBuilder jpql = new StringBuilder();
             jpql.append(" SELECT t FROM TcsDireccion t ");
+            jpql.append(" WHERE t.idcliente = :idcliente ");
+            jpql.append(" AND t.estado = 0 ");
             Query query = em.createQuery(jpql.toString());
 
             return query.getResultList();
@@ -26,15 +34,27 @@ public class ControlDireccionRepository {
 
     }
 
-    public TcsDireccion obtenerCliente(Integer idcliente) throws Exception {
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public TcsDireccion obtenerDireccion(Integer id) throws Exception {
         try {
-            return TcsDireccion.findById(idcliente);
+            return TcsDireccion.findById(id);
         } catch (Exception e) {
             throw e;
         }
         
     }
 
+    /**
+     * 
+     * @param object
+     * @return
+     * @throws Exception
+     */
     public TcsDireccion guardarDireccion(TcsDireccion object) throws Exception {
         try {
             object.persist();
@@ -44,6 +64,12 @@ public class ControlDireccionRepository {
         }
     }
 
+    /**
+     * 
+     * @param object
+     * @return
+     * @throws Exception
+     */
     public TcsDireccion actualizarDireccion(TcsDireccion object) throws Exception {
         try {
             object.getEntityManager().merge(object);

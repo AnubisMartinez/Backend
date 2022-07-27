@@ -15,6 +15,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 @Path("/cliente")
 public class ControlClienteResource {
@@ -22,6 +26,10 @@ public class ControlClienteResource {
     @Inject
     private ControlClienteService service;
 
+    @Operation(summary = "Devuelve la lista de clientes")
+    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, 
+                schema = @Schema(example = "TcsClienteEnca")))
+    @APIResponse(responseCode = "400", description = "No existe registro")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<TcsClienteEnca> getClientes() throws Exception {
@@ -32,6 +40,10 @@ public class ControlClienteResource {
         }
     }
 
+    @Operation(summary = "Devuelve los por correo")
+    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, 
+                schema = @Schema(example = "TcsClienteEnca")))
+    @APIResponse(responseCode = "400", description = "No existe registro")
     @GET
     @Path("correo/{correo}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -43,7 +55,10 @@ public class ControlClienteResource {
         }
     }
     
-
+    @Operation(summary = "Guarda el cliente")
+    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, 
+                schema = @Schema(example = "TcsClienteEnca")))
+    @APIResponse(responseCode = "400", description = "No existe registro")
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
@@ -58,6 +73,10 @@ public class ControlClienteResource {
         }
     }
 
+    @Operation(summary = "Actualiza los clientes")
+    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, 
+                schema = @Schema(example = "TcsClienteDeta")))
+    @APIResponse(responseCode = "400", description = "No existe registro")
     @PUT
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)

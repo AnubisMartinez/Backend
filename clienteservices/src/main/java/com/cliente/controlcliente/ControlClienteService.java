@@ -12,6 +12,11 @@ public class ControlClienteService {
     @Inject
     private ControlClienteRepository repository;
 
+    /**
+     * 
+     * @return
+     * @throws Exception
+     */
     public List<TcsClienteEnca> getClientes() throws Exception {
         try {
             return repository.getClientes();
@@ -20,6 +25,12 @@ public class ControlClienteService {
         }
     }
 
+    /**
+     * 
+     * @param correo
+     * @return
+     * @throws Exception
+     */
     public TcsClienteEnca obtenerCliente(String correo) throws Exception {
         try {
             if(correo == null || correo.trim().equals("")){
@@ -33,6 +44,12 @@ public class ControlClienteService {
         }
     }
 
+    /**
+     * 
+     * @param en
+     * @return
+     * @throws Exception
+     */
     public String guardarCliente (TcsClienteEnca en) throws Exception {
         try {
             if(en == null){
@@ -52,6 +69,12 @@ public class ControlClienteService {
 
     }
 
+    /**
+     * 
+     * @param td
+     * @return
+     * @throws Exception
+     */
     public String EditarCliente (TcsClienteDeta td) throws Exception {
         try {
             if(td == null){

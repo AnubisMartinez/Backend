@@ -13,6 +13,12 @@ public class ControlClienteRepository {
     @Inject
     private EntityManager em;
 
+
+    /**
+     * 
+     * @return
+     * @throws Exception
+     */
     public List<TcsClienteEnca> getClientes() throws Exception{
         try {
             StringBuilder jpql = new StringBuilder();
@@ -27,6 +33,12 @@ public class ControlClienteRepository {
 
     }
 
+    /**
+     * 
+     * @param correo
+     * @return
+     * @throws Exception
+     */
     public TcsClienteEnca obtenerCliente(String correo) throws Exception {
         try {
             return TcsClienteEnca.findById(correo);
@@ -36,27 +48,55 @@ public class ControlClienteRepository {
         
     }
 
+    /**
+     * 
+     * @param client
+     * @return
+     */
     public TcsClienteDeta buscarCliente(TcsClienteDetaPK client){
         return em.find(TcsClienteDeta.class, client);
     }
 
+    /**
+     * 
+     * @param correo
+     * @return
+     */
     public TcsClienteEnca buscarCorreoCliente(String correo){
         return em.find(TcsClienteEnca.class, correo);
     }
 
+    /**
+     * 
+     * @param id
+     * @return
+     */
     public TcsClienteEnca buscarIdCliente(Integer id){
         return em.find(TcsClienteEnca.class, id);
     }
 
+    /**
+     * 
+     * @param deta
+     * @param enca
+     */
     public void guardar(TcsClienteDeta deta, TcsClienteEnca enca){
         em.merge(deta);
         em.merge(enca);
     }
 
+    /**
+     * 
+     * @param enca
+     */
     public void guardarEnca(TcsClienteEnca enca){
         em.merge(enca);
     }
 
+    /**
+     * 
+     * @param deta
+     */
     public void guardarDeta(TcsClienteDeta deta){
         em.merge(deta);
     }

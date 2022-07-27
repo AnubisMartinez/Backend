@@ -12,44 +12,71 @@ public class ControlDocumentoService {
     @Inject
     private ControlDocumentoRepository repository;
 
-    public List<TcsDocumento> getDireccion(Integer idcliente) throws Exception{
+    /**
+     * 
+     * @param idcliente
+     * @return
+     * @throws Exception
+     */
+    public List<TcsDocumento> getDocumento(Integer idcliente) throws Exception{
         try {
-            return repository.getDireccion(idcliente);
+            if(idcliente == null){
+                throw new Exception("El idcliente es obligatorio");
+            }
+            return repository.getDocumento(idcliente);
         } catch (Exception e) {
             throw e;
         }
 
     }
 
-    public TcsDocumento obtenerCliente(Integer id) throws Exception {
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public TcsDocumento obtenerDocumento(Integer id) throws Exception {
         try {
             if(id == null){
                 throw new Exception("El id es obligatorio");
             }
-            return TcsDocumento.findById(id);
+            return repository.obtenerDocumento(id);
         } catch (Exception e) {
             throw e;
         }
         
     }
 
-    public TcsDocumento guardarDireccion(TcsDocumento object) throws Exception {
+    /**
+     * 
+     * @param object
+     * @return
+     * @throws Exception
+     */
+    public TcsDocumento guardarDocumento(TcsDocumento object) throws Exception {
         try {
             if(object == null){
                 throw new Exception("El objeto es obligatorio");
             }
-            return repository.guardarDireccion(object);
+            return repository.guardarDocumento(object);
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public TcsDocumento actualizarDireccion(TcsDocumento object) throws Exception {
+    /**
+     * 
+     * @param object
+     * @return
+     * @throws Exception
+     */
+    public TcsDocumento actualizarDocumento(TcsDocumento object) throws Exception {
         try {
             if(object == null){
                 throw new Exception("El objeto es obligatorio");
             }
-            return repository.actualizarDireccion(object);
+            return repository.actualizarDocumento(object);
         } catch (Exception e) {
             throw e;
         }

@@ -12,7 +12,13 @@ public class ControlDocumentoRepository {
     @Inject
     private EntityManager em;
 
-    public List<TcsDocumento> getDireccion(Integer idcliente) throws Exception{
+    /**
+     * 
+     * @param idcliente
+     * @return
+     * @throws Exception
+     */
+    public List<TcsDocumento> getDocumento(Integer idcliente) throws Exception{
         try {
             StringBuilder jpql = new StringBuilder();
             jpql.append(" SELECT t FROM TcsDocumento t ");
@@ -27,7 +33,13 @@ public class ControlDocumentoRepository {
 
     }
 
-    public TcsDocumento obtenerCliente(Integer id) throws Exception {
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public TcsDocumento obtenerDocumento(Integer id) throws Exception {
         try {
             return TcsDocumento.findById(id);
         } catch (Exception e) {
@@ -36,7 +48,13 @@ public class ControlDocumentoRepository {
         
     }
 
-    public TcsDocumento guardarDireccion(TcsDocumento object) throws Exception {
+    /**
+     * 
+     * @param object
+     * @return
+     * @throws Exception
+     */
+    public TcsDocumento guardarDocumento(TcsDocumento object) throws Exception {
         try {
             object.persist();
             return object;
@@ -45,7 +63,13 @@ public class ControlDocumentoRepository {
         }
     }
 
-    public TcsDocumento actualizarDireccion(TcsDocumento object) throws Exception {
+    /**
+     * 
+     * @param object
+     * @return
+     * @throws Exception
+     */
+    public TcsDocumento actualizarDocumento(TcsDocumento object) throws Exception {
         try {
             object.getEntityManager().merge(object);
             return object;
