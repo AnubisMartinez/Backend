@@ -1,0 +1,133 @@
+----------------------------------------------------
+------------ Creamos el usuario cliente ------------
+----------------------------------------------------
+
+CREATE USER Cliente identified by 123456;
+
+----------------------------------------------------
+------------ Le damos los permisos ------------
+----------------------------------------------------
+GRANT CONNECT, RESOURCE TO cliente;
+
+----------------------------------------------------
+------------ Creamos las tablas siguientes----------
+----------------------------------------------------
+
+CREATE TABLE "TCSCLIENTEDETA" 
+   (	"ID" NUMBER, 
+	"NOMBRE" VARCHAR2(50 BYTE), 
+	"APELLIDO" VARCHAR2(50 BYTE), 
+	"TELEFONO" VARCHAR2(20 BYTE), 
+	"CORREO" VARCHAR2(50 BYTE), 
+	"FECHAREGISTRO" DATE, 
+	"FECHAACTUALIZACION" DATE, 
+	"ESTADO" NUMBER
+   );
+
+
+CREATE TABLE "TCSCLIENTEENCA" 
+   (	"ID" NUMBER, 
+	"NOMBRE" VARCHAR2(50 BYTE), 
+	"APELLIDO" VARCHAR2(50 BYTE), 
+	"TELEFONO" VARCHAR2(20 BYTE), 
+	"CORREO" VARCHAR2(50 BYTE), 
+	"FECHAREGISTRO" DATE, 
+	"FECHAACTUALIZACION" DATE, 
+	"ESTADO" NUMBER
+   );
+
+
+  CREATE TABLE "TCSDIRECCION" 
+   (	"ID" NUMBER, 
+	"DEPARTAMENTO" VARCHAR2(50 BYTE), 
+	"MUNICIPIO" VARCHAR2(50 BYTE), 
+	"DIRECCION" VARCHAR2(50 BYTE), 
+	"FECHAREGISTRO" DATE, 
+	"FECHAACTUALIZACION" DATE, 
+	"ESTADO" NUMBER, 
+	"IDCLIENTE" NUMBER
+   );
+
+
+  CREATE TABLE "TCSDOCUMENTO" 
+   (	"ID" NUMBER, 
+	"NOMBRE" VARCHAR2(50 BYTE), 
+	"NUMERO" VARCHAR2(50 BYTE), 
+	"FECHAREGISTRO" DATE, 
+	"FECHAACTUALIZACION" DATE, 
+	"ESTADO" NUMBER, 
+	"IDCLIENTE" NUMBER
+   );
+
+
+
+----------------------------------------------------
+-------------- Creamos los secuenciadores ----------
+----------------------------------------------------
+CREATE SEQUENCE Secuencia_ClienteEnca
+INCREMENT BY 1
+START WITH 1
+NOMINVALUE
+NOMAXVALUE;
+
+CREATE SEQUENCE Secuencia_ClienteDeta
+INCREMENT BY 1
+START WITH 1
+NOMINVALUE
+NOMAXVALUE;
+
+CREATE SEQUENCE Secuencia_Documento
+INCREMENT BY 1
+START WITH 1
+NOMINVALUE
+NOMAXVALUE;
+
+CREATE SEQUENCE Secuencia_Direccion
+INCREMENT BY 1
+START WITH 1
+NOMINVALUE
+NOMAXVALUE;
+
+
+----------------------------------------------------
+-------------- Creamos los Trigger -----------------
+----------------------------------------------------
+
+CREATE OR REPLACE TRIGGER Trigger_Deta_Id
+BEFORE INSERT ON TCSCLIENTEDETA
+REFERENCING NEW AS NEW FOR EACH ROW
+DECLARE valorSecuencia NUMBER := 0;
+BEGIN
+SELECT Secuencia_ClienteDeta.NEXTVAL INTO valorSecuencia FROM DUAL;
+:NEW.ID := valorSecuencia;
+END;
+
+CREATE OR REPLACE TRIGGER Trigger_Enca_Id
+BEFORE INSERT ON TCSCLIENTEENCA
+REFERENCING NEW AS NEW FOR EACH ROW
+DECLARE valorSecuencia NUMBER := 0;
+BEGIN
+SELECT Secuencia_ClienteEnca.NEXTVAL INTO valorSecuencia FROM DUAL;
+:NEW.ID := valorSecuencia;
+END;
+
+
+
+CREATE OR REPLACE TRIGGER Trigger_Documento_Id
+BEFORE INSERT ON TCSDOCUMENTO
+REFERENCING NEW AS NEW FOR EACH ROW
+DECLARE valorSecuencia NUMBER := 0;
+BEGIN
+SELECT Secuencia_Documento.NEXTVAL INTO valorSecuencia FROM DUAL;
+:NEW.ID := valorSecuencia;
+END;
+
+
+CREATE OR REPLACE TRIGGER Trigger_Direccion_Id
+BEFORE INSERT ON TCSDIRECCION
+REFERENCING NEW AS NEW FOR EACH ROW
+DECLARE valorSecuencia NUMBER := 0;
+BEGIN
+SELECT Secuencia_Direccion.NEXTVAL INTO valorSecuencia FROM DUAL;
+:NEW.ID := valorSecuencia;
+END;
